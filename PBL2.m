@@ -98,7 +98,7 @@ colors = ["r", "y" "g", "c", "b", "m", "k"]
 % LET ANIKA CHOOSE COLORS PLEASE
 
 for j = 1:length(chemicals)
-    plot(units, flow_rates(:, j), "-o", 'DisplayName', colors(j), chemicals(j));
+    plot(units, flow_rates(:, j), "-o", "Color", colors(j), "DisplayName", chemicals(j));
 end
 
 xticks(length(units)); 
@@ -107,4 +107,5 @@ xlabel("Nephron Unit");
 ylabel("Flow Rate (idk units)");
 title("Chemical Constituent Flow Rate per Unit");
 grid on;
+
 
