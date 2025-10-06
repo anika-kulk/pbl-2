@@ -78,11 +78,11 @@ Fin0 = GFR; % Initial overall flow rate = GFR (where F = filtrate)
 for i = 1:length(units)
 
     % Accounting for each chemical constituent
-    Pin  = GFR .* Fin0; % P for psi lmao
-    Pout = Pin .* (1 - reabs_frac(i, :) + sec_frac(i, :));
+    Pin  = GFR .* Fin0; % P for psi lmao; vector with inflows for all chemicals
+    Pout = Pin .* (1 - reabs_frac(i, :) + sec_frac(i, :)); % Vector with outflows for all chemicals
 
     % Fill row i of 6x7 matrix
-    flow_rates(i, 1) = Pout;                
+    flow_rates(i, :) = Pout; % Given that Pout is a vector containing flow rates of all chemicals at that unit              
 
 end
 
@@ -101,11 +101,12 @@ for j = 1:length(chemicals)
     plot(units, flow_rates(:, j), "-o", "Color", colors(j), "DisplayName", chemicals(j));
 end
 
-xticks(length(units)); 
+xticks(1:length(units)); 
 xticklabels(units);
 xlabel("Nephron Unit"); 
 ylabel("Flow Rate (idk units)");
 title("Chemical Constituent Flow Rate per Unit");
 grid on;
+
 
 
