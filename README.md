@@ -23,7 +23,7 @@ GOAL: generate a 6x7 (haha) matrix displaying how much of each chemical is outpu
 * Each column is one of the selected chemical constituents (H2O, Na+, Cl-, Urea, Glucose, K+, HCO₃-)
 
 $$\begin{bmatrix}
-\text{Func}&\text{Blood}&H_2O&K^+&HCO_3^-&\text{Glucose}&NaCl&\text{Urea}\\
+\&H_2O&Na^+&Cl^-&\text{Urea}&\text{Glucose}&K^+&HCO_3^-\\
 \text{RP}_1&0&0&0&0&0&0&0\\
 \text{PT}_2&0&0&0&0&0&0&0\\
 \text{DL}_3&0&0&0&0&0&0&0\\
