@@ -4,7 +4,7 @@
 % Ryan Nguyen, Krishna Ravi, Tatum Thompson, Felix Wang
 
 % Code Contributors:
-% Anika Kulkarni    Last Commit: 10/5/2025
+% Anika Kulkarni    Last Commit: 10/15/2025
 % Krishna Ravi      Last Commit: 
 % Felix Wang        Last Commit: 10/5/2025
 
@@ -24,142 +24,120 @@
 % Indices
 % -----------------------------
 % Chemical Constituents
-chemicals = ["H2O", "Na+", "Cl-", "Urea", "Glucose", "K+", "HCO3-"];
-% Add creatinine (?)
+chemicals = ["Na+", "Cl-", "Urea", "Glucose", "K+", "HCO3-", "Mg2+", "PO4 3-", "Creatinine"];
+molec_weights = [22.989, 35.453, 60.056, 180.156, 39.098, 61.020, 24.305, 94.971, 113.12]; % For gram conversion
 
 % Nephronal Units
-units = ["RC", "PT", "DL", "AL", "DT", "CD"]
+units = ["RC", "PT", "DL", "AL", "DT", "CD"];
 % RC = Renal Corpuscle
 % PT = Proximal Tubule
 % DL = Descending Limb
 % AL = Ascending Limb
 % DT = Distal Tubule
 % CD = Collecting Duct
+% Corresponds to x-axis for plots
 
+nSeg = length(units);
+nSol = length(chemicals);
 
 % Data Matrices
 % -----------------------------
 %{
-      H2O     Na+     Cl-    Urea    Gluc     K+     HCO3-
-RC | (1,1) | (1,2) | (1,3) | (1,4) | (1,5) | (1,6) | (1,7) |
-PT | (2,1) | (2,2) | (2,3) | (2,4) | (2,5) | (2,6) | (2,7) |
-DL | (3,1) | (3,2) | (3,3) | (3,4) | (3,5) | (3,6) | (3,7) |
-AL | (4,1) | (4,2) | (4,3) | (4,4) | (4,5) | (4,6) | (4,7) |
-DT | (5,1) | (5,2) | (5,3) | (5,4) | (5,5) | (5,6) | (5,7) |
-CD | (6,1) | (6,2) | (6,3) | (6,4) | (6,5) | (6,6) | (6,7) |
+      Na+     Cl-    Urea    Gluc     K+     HCO3-   Mg2+    PO43-   Creat  
+RC | (1,1) | (1,2) | (1,3) | (1,4) | (1,5) | (1,6) | (1,7) | (1,8) | (1,9) 
+PT | (2,1) | (2,2) | (2,3) | (2,4) | (2,5) | (2,6) | (2,7) | (2,8) | (2,9)  
+DL | (3,1) | (3,2) | (3,3) | (3,4) | (3,5) | (3,6) | (3,7) | (3,8) | (3,9)    
+AL | (4,1) | (4,2) | (4,3) | (4,4) | (4,5) | (4,6) | (4,7) | (4,8) | (4,9) 
+DT | (5,1) | (5,2) | (5,3) | (5,4) | (5,5) | (5,6) | (5,7) | (5,8) | (5,9) 
+CD | (6,1) | (6,2) | (6,3) | (6,4) | (6,5) | (6,6) | (6,7) | (6,8) | (6,9) 
 %}
 
-rng("default")
+% Inlet filtrate concentrations at renal corpuscle
+C0 = [140, 103, 5, 5, ]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
+% FILL THE REST
 
 % Reabsorption fractions per constituent (of incoming stream) per unit
 % This is what's returned to interstitial fluid
-reabs_frac = rand(6,7); % Testing
-%{
-reabs_frac = [0, 0, 0, 0, 0, 0, 0 ; % RC
-              0, 0, 0, 0, 0, 0, 0 ; % PT
+reabs_frac = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0; % RC
+              0.65, 0.65, 0.50, 0.99, 0, 0, 0 ; % PT
               0, 0, 0, 0, 0, 0, 0 ; % DL (salt-impermeable)
-              0, 0, 0, 0, 0, 0, 0 ; % AL (water-impermeable, salt-permeable)
-              0, 0, 0, 0, 0, 0, 0 ; % DT
-              0, 0, 0, 0, 0, 0, 0 ; % CD
-             ]
-%}
+              0.25, 0.25, 0, 0, 0, 0, 0 ; % AL (water-impermeable, salt-permeable)
+              0.05, 0.05, 0, 0, 0, 0, 0 ; % DT
+              0.03, 0.03, 0.40, 0, 0, 0, 0 ; % CD
+             ];
+% FILL THE REST
 
-% Secretion fractions per constituent (of incoming stream) per unit
-% This is what's secreted from the blood
-sec_frac = rand(6,7); % Testing
-%{
-sec_frac = [0, 0, 0, 0, 0, 0, 0 ; % RC
-            0, 0, 0, 0, 0, 0, 0 ; % PT
-            0, 0, 0, 0, 0, 0, 0 ; % DL
-            0, 0, 0, 0, 0, 0, 0 ; % AL
-            0, 0, 0, 0, 0, 0, 0 ; % DT
-            0, 0, 0, 0, 0, 0, 0 ; % CD
-           ]
-%}
-
-% Plasma/filtrate fractions
-mass_fracs = [ ];
-
-% Flow rates per constituent per unit
+% Molar flow rates per constituent per unit
 % To be solved for; preallocated for now 
-flow_rates = zeros(6,7);
+molar_flow_rates = zeros(nSeg,nSol);
 
-% Amounts per constituent per unit
+% Concentrations per constituent per unit
 % To be solved for; preallocated for now 
-amounts = zeros(6,7);
+concs = zeros(nSeg,nSol);
 
+% Input concentrations
+snGFR = 60 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
+
+% Volumetric flow rates per constituent per unit
+vol_flow_rates = snGFR * ones(nSeg,1); % nL/min
+% Set up so molar flow rate = vol flow rate * conc, so mL/min * mM = nmol/min
 
 % Calculations
 % -----------------------------
-% Input concentrations
-GFR = 120; % mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
-
 % Initialize input stream to first unit (RC)
-Fin0 = GFR; % Initial overall flow rate = GFR (where F = filtrate)
+concs(1,:) = C0;
+molar_flow_rates(1,:) = snGFR .* concs(1,:); % nmol/min
 
-% Flow Rates
-for i = 1:length(units)
+% Propagate flow rates by unit/segment
+for i = 2:nSeg
 
     % Accounting for each chemical constituent
-    P_in  = GFR .* Fin0; % P for psi lmao; vector with inflows for all chemicals
-    P_out = P_in .* (1 - reabs_frac(i,:) + sec_frac(i,:)); % Vector with outflows for all chemicals
+    N_in  = molar_flow_rates(i-1,:); % Vector with inflows for all chemicals (nmol/min)
+    N_out = N_in .* (1 - reabs_frac(i,:)); % Vector with outflows for all chemicals
 
-    % Fill row i of 6x7 matrix
-    flow_rates(i,:) = P_out; % Given that P_out is a vector containing flow rates of all chemicals at that unit              
+    if N_out < 0
+        errordlg("Negative Flow Rate at Row " + i + "!!!")
+    end
 
+    % Fill row i of 6x9 matrix
+    molar_flow_rates(i,:) = N_out; % Given that P_out is a vector containing flow rates of all chemicals at that unit              
+    concs(i,:) = molar_flow_rates(i,:) ./ vol_flow_rates(i); % nmol/min / nL/min = nmol/nL
 end
 
-Amounts0 = 100000 .* [1, 1, 1, 1, 1, 1, 1]; % Tunable starting amounts
-Times0 = [1, 1, 1, 1, 1, 1, 1]; % Tunable times in each Nephron Unit
-
-% Amounts
-for i = 1:length(units)
-
-    if (i==1)
-        amounts(i,:) = Amounts0 - flow_rates(i,:) .* Times0(i);
-    else
-        amounts(i,:) = amounts(i-1,:) - flow_rates(i,:) .* Times0(i);
-    end
-    % Error Notification
-    if (amounts(i,:) < 0)
-        errordlg("Negative Amount Value at Row " + i + "!!!")
-    end
+% Outlets in grams/min
+grams_per_min_out = zeros(1,nSol);
+for j = 1:nSol
+    grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-9; % nmol/min * g/mol * 1e-9 = g/min   
 end
 
+disp("Outlet (collecting duct) in grams/min per solute: ");
+for k = 1:nSol
+    disp(chemicals(j) + ":" + num2str(grams_per_min_out(k)));
+end
 
 % Graphs
 % -----------------------------
 % Display to check matrix is reasonable
-disp("6x7 Flow Rate Matrix (rows = RC, PT, DL, AL, DT, CD; columns = H2O, Na+, Cl-, Urea, Glucose, K+, HCO3-):");
-disp(flow_rates);
+disp('6x9 Molar Flow Rate Matrix (rows = RC, PT, DL, AL, DT, CD; columns = Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, phosphate, creatinine):');
+disp(molar_flow_rates);
 
-% Line plot of chemical constituent flow rates per unit index
-figure("Name", "Chemical Constitutent Flow Rates");
-hold on; grid on;
-colors = ["r", "y" "g", "c", "b", "m", "k"];
-% LET ANIKA CHOOSE COLORS PLEASE
-% ogey - Felix
+for k = 1:nSol
+    % Concentrations
+    subplot(2, nSol, k);
+    plot(1:nSeg, concs(:,k), '-o', 'LineWidth', 1.5); 
+    grid on;
+    title(chemicals(k) + " Concentration");
+    xticks(1:nSeg); 
+    xticklabels(units); 
+    ylabel('mM');
 
-title("Chemical Constituent Flow Rate per Unit");
-xlabel("Nephron Unit");
-ylabel("Flow Rate (idk units)");
-xticks(1:length(units)); xticklabels(units);
-legend(units)
-
-for j = 1:length(chemicals)
-    plot(flow_rates(:, j), "-o", "Color", colors(j), "DisplayName", chemicals(j));
+    % Molar flow rates
+    subplot(2, nSol, nSol + k);
+    plot(1:nSeg, molar_flow_rates(:,k), '-o', 'LineWidth', 1.5); 
+    grid on;
+    title(chemicals(k) + " Flow");
+    xticks(1:nSeg); 
+    xticklabels(units); 
+    ylabel('nmol/min');
 end
 
-% Line plots of chemical constituent amount per unit index
-figure("Name", "Chemical Constitutent Amounts");
-hold on; grid on;
-title("Chemical Constitutent Amounts");
-
-for n = 1:length(chemicals)
-    subplot(3,3,n);
-    plot(amounts(:,n), "-o", "Color", colors(n), "DisplayName", chemicals(n));
-    title(chemicals(n));
-    xlabel("Nephron Unit"); ylabel("Amount");
-    xticks(1:length(units)); xticklabels(units);
-    ylim([0,inf])
-end
