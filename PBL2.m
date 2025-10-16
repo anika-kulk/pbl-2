@@ -92,7 +92,7 @@ molar_flow_rates(1,:) = snGFR .* concs(1,:); % mmol/min
 for i = 2:nSeg
 
     % Accounting for each chemical constituent
-    N_in  = molar_flow_rates(i-1,:); % Vector with inflows for all chemicals (nmol/min)
+    N_in  = molar_flow_rates(i-1,:); % Vector with inflows for all chemicals (mmol/min)
     N_out = N_in .* (1 - reabs_frac(i,:)); % Vector with outflows for all chemicals
 
     if N_out < 0
@@ -101,13 +101,13 @@ for i = 2:nSeg
 
     % Fill row i of 6x9 matrix
     molar_flow_rates(i,:) = N_out; % Given that P_out is a vector containing flow rates of all chemicals at that unit              
-    concs(i,:) = molar_flow_rates(i,:) ./ vol_flow_rates(i); % nmol/min / nL/min = nmol/nL
+    concs(i,:) = molar_flow_rates(i,:) ./ vol_flow_rates(i); % mmol/min / mL/min = mmol/L
 end
 
 % Outlets in grams/min
 grams_per_min_out = zeros(1,nSol);
 for j = 1:nSol
-    grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-9; % nmol/min * g/mol * 1e-9 = g/min   
+    grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-3; % mmol/min * g/mol * 1e-3 = g/min   
 end
 
 disp("Outlet (collecting duct) in grams/min per solute: ");
@@ -156,6 +156,7 @@ for k = 1:nSol
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
