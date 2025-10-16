@@ -1,4 +1,4 @@
-%% PBL Project 2^M
+%% PBL Project 2
 % PBL Group 4:
 % Sophia Burgueno, Anika Kulkarni, Valentina Lopez, 
 % Ryan Nguyen, Krishna Ravi, Tatum Thompson, Felix Wang
@@ -156,6 +156,7 @@ for k = 1:nSol
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
