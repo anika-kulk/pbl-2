@@ -1,3 +1,6 @@
+## Model
+Will make a new diagram
+
 ## Key Mass Conservation Equation
 For Each Solute $s$ in 1 Nephron Unit:
 
@@ -23,20 +26,24 @@ $$\begin{array}{l}
 \end{array}$$
 
 
-## Pseudocode  
-GOAL: generate a 6x7 (haha) matrix displaying how much of each chemical is outputted from each nephron unit.
-* Each row is one of the 6 units (RC, PT, DL, AL, DT, CD)
-* Each column is one of the selected chemical constituents (H2O, Na+, Cl-, Urea, Glucose, K+, HCO₃-)
+## Data
+Mass Reabsorbption Fractions will be stored in a $6\times 9$ Matrix
+- Each Row is a Nephronal Unit
+- Each Column is a Selected Chemical Constituent
 
 $$\begin{bmatrix}
-\&H_2O&Na^+&Cl^-&\text{Urea}&\text{Glucose}&K^+&HCO_3^-\\
-\text{RP}_1&0&0&0&0&0&0&0\\
-\text{PT}_2&0&0&0&0&0&0&0\\
-\text{DL}_3&0&0&0&0&0&0&0\\
-\text{AL}_4&0&0&0&0&0&0&0\\
-\text{DT}_5&0&0&0&0&0&0&0\\
-\text{CD}_6&0&0&0&0&0&0&0\\
+&Na^+&Cl^-&\text{Urea}&\text{Glucose}&K^+&HCO_3^-&Mg^{2+}&PO_4^{3-}&\text{Creatinine}\\
+\text{RP}_1&0    &0    &     &0    &0    &0    &0    &0    &0\\
+\text{PT}_2&0.65 &0.50 &0.50 &0.99 &0.50 &0.80 &0.20 &0.75 &sec\\
+\text{DL}_3&0    &0    &sec  &0    &?    &0.15 &0    &0    &0\\
+\text{AL}_4&0.25 &0.20 &0    &0    &0.20 &0    &0.65 &0    &0\\
+\text{DT}_5&0.05 &0.05 &0    &0    &?    &0    &0.05 &0.05 &0\\
+\text{CD}_6&0.02 &0.03 &?    &0    &?    &Rem  &0    &Rem  &0\\
 \end{bmatrix}$$
+
+
+
+## Pseudocode  
 
 
 1. Allocate vectors for the units and chemicals
