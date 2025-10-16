@@ -43,10 +43,7 @@ $$\begin{bmatrix}
 \end{bmatrix}$$
 
 
-
-## Pseudocode  
-
-
+## Pseudocode
 1. Allocate vectors for the units and chemicals
 2. Initialize starting values (healthy GFR, secreted concentrations of each solute + water into Bowman's capsule)
 3. Allocate a matrix of the reabsorption of each chemical constituent in each unit (6x7)
