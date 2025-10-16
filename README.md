@@ -8,7 +8,8 @@ For Each Solute $s$ in 1 Nephron Unit:
 
 $$\text{In }-\text{ Out }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}~~=~~0$$
 
-- *Assuming steady-state system, no reactions*  
+- *Assuming steady-state system, no reactions*
+- *Assuming no secretion*
 - $\color{green}\text{Reabsorbed}$ = *From filtrate into interstitial fluid*
 - $\color{red}\text{Secreted}$ = *From bloodstream into filtrate*
 <br>
