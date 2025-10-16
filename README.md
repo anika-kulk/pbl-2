@@ -1,12 +1,18 @@
-### Key Mass Conservation Equation  
-For each solute s in 1 nephron unit, IN - OUT - REABSORBED + SECRETED = 0  
+## Key Mass Conservation Equation
+For Each Solute $s$ in 1 Nephron Unit:
 
-*** *assuming steady-state, no reactions*  
-*** *where reabsorbed = from filtrate into interstitial fluid, secreted = from bloodstream into filtrate*
+$$\text{In }-\text{ Out }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}~~=~~0$$
 
-To calculate the flow rate per unit, rearrange conservation equation: OUT = IN - REABSORBED + SECRETED
+- *Assuming steady-state system, no reactions*  
+- $\color{green}\text{Reabsorbed}$ = *From filtrate into interstitial fluid*
+- $\color{red}\text{Secreted}$ = *From bloodstream into filtrate*
+<br>
 
-### Key Calculations
+To Calculate the Flow Rate per Unit, Rearrange the Conservation Equation:
+
+$$\text{ Out}⠀=⠀\text{In }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}$$
+
+## Key Calculations
 $$\dot\psi_{reabs}⠀=⠀\dot\psi_{in}w_{reabs}$$
 $$\dot\psi_{sec}⠀=⠀\dot\psi_{in}w_{sec}$$
 
@@ -17,7 +23,7 @@ $$\begin{array}{l}
 \end{array}$$
 
 
-### Pseudocode  
+## Pseudocode  
 GOAL: generate a 6x7 (haha) matrix displaying how much of each chemical is outputted from each nephron unit.
 * Each row is one of the 6 units (RC, PT, DL, AL, DT, CD)
 * Each column is one of the selected chemical constituents (H2O, Na+, Cl-, Urea, Glucose, K+, HCO₃-)
