@@ -59,10 +59,10 @@ C0 = [140, 103, 5, 5, ]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Crea
 % Reabsorption fractions per constituent (of incoming stream) per unit
 % This is what's returned to interstitial fluid
 reabs_frac = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0; % RC
-              0.65, 0.65, 0.50, 0.99, 0, 0, 0 ; % PT
-              0, 0, 0, 0, 0, 0, 0 ; % DL (salt-impermeable)
-              0.25, 0.25, 0, 0, 0, 0, 0 ; % AL (water-impermeable, salt-permeable)
-              0.05, 0.05, 0, 0, 0, 0, 0 ; % DT
+              0.65, 0.65, 0.50, 0.99, 0.65, 0.85, 0.25, 0.80,-0.20 ; % PT
+              0, 0, 0, 0, 0, 0.15, 0,0,0; % DL (salt-impermeable)
+              0.25, 0.25, 0, 0, 0.25, 0, 0.7, 0, 0; % AL (water-impermeable, salt-permeable)
+              0.05, 0.05, 0, 0, 0, 0, 0.05, 0.05, 0 ; % DT
               0.03, 0.03, 0.40, 0, 0, 0, 0 ; % CD
              ];
 % FILL THE REST
@@ -140,4 +140,5 @@ for k = 1:nSol
     xticklabels(units); 
     ylabel('nmol/min');
 end
+
 
