@@ -49,6 +49,7 @@ $$\begin{bmatrix}
 
 Initial Concentrations of Chemical Constituents in Filtrate
 
+$$\text{concs}()$$
 $$\begin{bmatrix}
 \text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
 140 & 103 & 5 & 5 &\color{red}? & \color{red}? & \color{red}? &  \color{red}? & \color{red}?
