@@ -1,7 +1,7 @@
 ## Model
 Will make a new diagram
 
-## Key Mass Conservation Equation
+## Conservation Equation
 For Each Solute $s$ in 1 Nephron Unit:
 
 $$\text{In }-\text{ Out }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}~~=~~0$$
@@ -15,7 +15,7 @@ To Calculate the Flow Rate per Unit, Rearrange the Conservation Equation:
 
 $$\text{ Out}⠀=⠀\text{In }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}$$
 
-## Key Calculations
+## Equation Form
 $$\dot\psi_{reabs}⠀=⠀\dot\psi_{in}w_{reabs}$$
 $$\dot\psi_{sec}⠀=⠀\dot\psi_{in}w_{sec}$$
 
