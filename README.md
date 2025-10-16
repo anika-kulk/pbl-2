@@ -86,13 +86,13 @@ $$\begin{array}{l}
 7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
 
 $$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
-$$\text{Unit: }\color{grey}\left(\frac{\text{mmol}}{\text{mL}}\right)$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{mmol}}{\text{L}}\right)$$
 
 <br>
 
 8. Calculates the `Mass Outflow Rates` after passing through the Collecting Duct
 
-$$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Collecting Duct})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-9}$$
+$$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Collecting Duct})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-3}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
 
 <br>
