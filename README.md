@@ -54,9 +54,9 @@ $$\begin{bmatrix}
 <br>
 
 ## Pseudocode
-1. Initialize vectors for `Chemicals`, `Nephronal Units`, `Inlet Filtrate Concentrations`, and `Molar Flow Rates`
-2. Initialize data matrix for `Reabsorption Fractions`
-3. Starting Values (Renal Corpuscle): `Inlet Filtrate Concentrations`
+1. Initializes vectors for `Chemicals`, `Nephronal Units`, `Inlet Filtrate Concentrations`, and `Molar Flow Rates`
+2. Initializes data matrix for `Reabsorption Fractions`
+3. Initializes starting values at Renal Corpuscle: `Inlet Filtrate Concentrations`
 4. Calculates the snGFR
 
 $$\text{snGFR}⠀=⠀\frac{60}{1000}$$
@@ -67,7 +67,7 @@ $$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
 5. Calculates the `Volumetric Flow Rate per Constituent per Unit`
 
 $$\text{Volumetric Flow Rate}⠀=⠀\text{snGFR}$$
-$$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{cm}^3}{\text{min}}\right)$$
 
 <br>
 
@@ -83,7 +83,7 @@ $$\begin{array}{l}
 7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
 
 $$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
-$$\text{Unit: }\color{grey}\left(\frac{\text{mmol}}{\text{mL}}\right)$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{nmol}}{\text{mL}}\right)$$
 
 <br>
 
