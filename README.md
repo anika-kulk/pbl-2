@@ -1,6 +1,8 @@
 ## Model
 $$\text{Renal Corpuscle}\longrightarrow\text{Proximal Tubule}\longrightarrow\text{Descending Limb}\longrightarrow\text{Ascending Limb}\longrightarrow\text{Distal Tubule}\longrightarrow\text{Collecting Duct}$$
 
+<br>
+
 ## Conservation Equation
 For Each Solute $s$ in 1 Nephron Unit:
 
