@@ -74,8 +74,8 @@ $$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
 6. Calculates the `Molar Flow Rates` for each Nephronal Unit starting at the Proximal Tubule
 
 $$\begin{array}{l}
-\dot n_{in}&=&\text{Molar Flow Rates}(\text{Previous Row})\\
-\dot n_{out}&=&\dot n_{in}\text{ }\times\text{ }[1-\text{Reabsorbption Fractions}(\text{Current Row})]
+\dot n_{in}&=&\text{Molar Flow Rates}(\text{Previous Unit})\\
+\dot n_{out}&=&\dot n_{in}\text{ }\times\text{ }[1-\text{Reabsorbption Fractions}(\text{Current Unit})]
 \end{array}$$
 
 <br>
@@ -83,13 +83,13 @@ $$\begin{array}{l}
 7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
 
 $$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
-$$\text{Unit: }\color{grey}\left(\frac{\text{nmol}}{\text{mL}}\right)$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{mmol}}{\text{mL}}\right)$$
 
 <br>
 
 8. Calculates the `Mass Outflow Rates` after passing through the Collecting Duct
 
-$$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Last Row})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-9}$$
+$$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Collecting Duct})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-9}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
 
 <br>
