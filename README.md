@@ -83,7 +83,7 @@ $$\begin{array}{l}
 7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
 
 $$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
-$$\text{Unit: }\color{grey}\left(\frac{\text{nmol}}{\text{mL}}\right)$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{mmol}}{\text{mL}}\right)$$
 
 <br>
 
