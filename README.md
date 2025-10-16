@@ -42,6 +42,7 @@ $$\begin{bmatrix}
 \text{CD}_6&0.02 &0.03 &\color{red}?    &0    &\color{red}?    &1.00 &0    &1.00 &0\\
 \end{bmatrix}$$
 
+<br>
 
 Initial Concentrations of Chemical Constituents in Filtrate
 
@@ -49,6 +50,8 @@ $$\begin{bmatrix}
 \text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
 140 & 103 & 5 & 5 &\color{red}? & \color{red}? & \color{red}? &  \color{red}? & \color{red}?
 \end{bmatrix}\frac{\text{mmol}}{\text{L}}$$
+
+<br>
 
 ## Pseudocode
 1. Initialize vectors for `Chemicals`, `Nephronal Units`, `Inlet Filtrate Concentrations`, and `Molar Flow Rates`
@@ -59,10 +62,14 @@ $$\begin{bmatrix}
 $$\text{snGFR}⠀=⠀\frac{60}{1000}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
 
+<br>
+
 5. Calculates the `Volumetric Flow Rate per Constituent per Unit`
 
 $$\text{Volumetric Flow Rate}⠀=⠀\text{snGFR}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
+
+<br>
 
 6. Calculates the `Molar Flow Rates` for each Nephronal Unit starting at the Proximal Tubule
 
@@ -71,15 +78,21 @@ $$\begin{array}{l}
 \dot n_{out}&=&\dot n_{in}\text{ }\times\text{ }[1-\text{Reabsorbption Fractions}(\text{Current Row})]
 \end{array}$$
 
+<br>
+
 7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
 
 $$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{nmol}}{\text{mL}}\right)$$
 
+<br>
+
 8. Calculates the `Mass Outflow Rates` after passing through the Collecting Duct
 
 $$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Last Row})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-9}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
+
+<br>
 
 9. Plots Graphs
 - $mM$ vs. Nephronal Unit
