@@ -53,7 +53,7 @@ CD | (6,1) | (6,2) | (6,3) | (6,4) | (6,5) | (6,6) | (6,7) | (6,8) | (6,9)
 %}
 
 % Inlet filtrate concentrations at renal corpuscle
-C0 = [140, 103, 5, 5, ]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
+C0 = [140, 102, 5.714, 4.691, 4.350, 24, 0.823, 0.395, 0.092]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
 % FILL THE REST
 
 % Reabsorption fractions per constituent (of incoming stream) per unit
@@ -140,6 +140,7 @@ for k = 1:nSol
     xticklabels(units); 
     ylabel('nmol/min');
 end
+
 
 
 
