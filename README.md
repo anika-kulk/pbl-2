@@ -31,6 +31,7 @@ Mass Reabsorbption Fractions will be stored in a $6\times 9$ Matrix
 - Each Row is a Nephronal Unit
 - Each Column is a Selected Chemical Constituent
 
+$$\text{reabs}\textunderscore\text{frac}()$$
 $$\begin{bmatrix}
 &⠀Na^+⠀~&⠀Cl^-⠀&\text{ Urea }&\text{Glucose}&⠀K^+⠀&HCO_3^-&Mg^{2+}~&~PO_4^{3-}~&\text{Creatinine}\\
 \text{RP}_1&0    &0    &     &0    &0    &0    &0    &0    &0\\
