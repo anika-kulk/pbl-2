@@ -17,9 +17,9 @@ $$\dot\psi_{reabs}⠀=⠀\dot\psi_{in}w_{reabs}$$
 $$\dot\psi_{sec}⠀=⠀\dot\psi_{in}w_{sec}$$
 
 $$\begin{array}{l}
-\dot\psi_{out}&=&\dot\psi_{in}⠀-⠀\dot\psi_{reabs}⠀+⠀\dot\psi_{sec}\\
-&=&\dot\psi_{in}⠀-⠀\dot\psi_{in}(w_{reabs})⠀+⠀\dot\psi_{in}(w_{sec})\\
-&=&\dot\psi_{in}[1~-~w_{reabs}~+~w_{sec}]
+\dot\psi_{out}&=&\dot\psi_{in}⠀-⠀\dot\psi_{reabs}⠀+⠀\cancel{\dot\psi_{sec}}\\
+&=&\dot\psi_{in}⠀-⠀\dot\psi_{in}(w_{reabs})\\
+&=&\dot\psi_{in}[1~-~w_{reabs}]
 \end{array}$$
 
 
