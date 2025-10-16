@@ -95,5 +95,5 @@ $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
 <br>
 
 9. Plots Graphs
-- $mM$ vs. Nephronal Unit
-- $\frac{\text{nmol}}{\text{min}}$ vs. Nephronal Unit
+- $\text{mM}$ vs. Nephronal Unit
+- $\frac{\text{mmol}}{\text{min}}$ vs. Nephronal Unit
