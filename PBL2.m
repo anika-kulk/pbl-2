@@ -136,6 +136,7 @@ for k = 1:nSol
     xticks(1:nSeg)
     xticklabels(units)
     ylabel('mM')
+    ylim([0, 10])
 end
 
 sgtitle('Solute Concentrations Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
@@ -153,9 +154,11 @@ for k = 1:nSol
     xticks(1:nSeg)
     xticklabels(units)
     ylabel('mmol/min')
+    ylim([0, 10])
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
