@@ -112,7 +112,7 @@ end
 
 disp("Outlet (collecting duct) in grams/min per solute: ");
 for k = 1:nSol
-    disp(chemicals(j) + ":" + num2str(grams_per_min_out(k)));
+    disp(chemicals(k) + ":" + num2str(grams_per_min_out(k)));
 end
 
 % Graphs
@@ -140,6 +140,7 @@ for k = 1:nSol
     xticklabels(units); 
     ylabel('nmol/min');
 end
+
 
 
 
