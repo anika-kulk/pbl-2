@@ -43,15 +43,44 @@ $$\begin{bmatrix}
 \end{bmatrix}$$
 
 
+Initial Concentrations of Chemical Constituents in Filtrate
+
+$$\begin{bmatrix}
+\text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
+140 & 103 & 5 & 5 &\color{red}? & \color{red}? & \color{red}? &  \color{red}? & \color{red}?
+\end{bmatrix}\frac{\text{mmol}}{\text{L}}$$
+
 ## Pseudocode
-1. Allocate vectors for the units and chemicals
-2. Initialize starting values (healthy GFR, secreted concentrations of each solute + water into Bowman's capsule)
-3. Allocate a matrix of the reabsorption of each chemical constituent in each unit (6x7)
-4. Allocate a matrix of the secretion of each chemical constituent in each unit (6x7) - should generally be pretty small/0
-5. Preallocate 6x7 matrix of zeroes to hold results
-6. Loop through vector of units to calcualte solute flows
-7. Add headers, save as .csv/.xlsx/idk whatever we want
-8. Generate line plot of pseudotime (passage through each unit) vs. solute flow rate, with one line per constituent
+1. Initialize vectors for `Chemicals`, `Nephronal Units`, `Inlet Filtrate Concentrations`, and `Molar Flow Rates`
+2. Initialize data matrix for `Reabsorption Fractions`
+3. Starting Values (Renal Corpuscle): `Inlet Filtrate Concentrations`
+4. Calculates the snGFR
 
+$$\text{snGFR}⠀=⠀\frac{60}{1000}$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
 
+5. Calculates the `Volumetric Flow Rate per Constituent per Unit`
 
+$$\text{Volumetric Flow Rate}⠀=⠀\text{snGFR}$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
+
+6. Calculates the `Molar Flow Rates` for each Nephronal Unit starting at the Proximal Tubule
+
+$$\begin{array}{l}
+\dot n_{in}&=&\text{Molar Flow Rates}(\text{Previous Row})\\
+\dot n_{out}&=&\dot n_{in}\text{ }\times\text{ }[1-\text{Reabsorbption Fractions}(\text{Current Row})]
+\end{array}$$
+
+7. Calculates the `Molar Concentrations` for each Nephronal Unit starting at the Proximal Tubule
+
+$$M⠀=⠀\frac{\text{Molar Flow Rates}}{\text{Volumetric Flow Rates}}$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{nmol}}{\text{mL}}\right)$$
+
+8. Calculates the `Mass Outflow Rates` after passing through the Collecting Duct
+
+$$\dot m_j⠀=⠀\text{Molar Flow Rates}(\text{Last Row})\text{ }\times\text{ }\text{Molecular Weight}\text{ }\times\text{ }10^{-9}$$
+$$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
+
+9. Plots Graphs
+- $mM$ vs. Nephronal Unit
+- $\frac{\text{nmol}}{\text{min}}$ vs. Nephronal Unit
