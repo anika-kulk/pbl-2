@@ -1,10 +1,10 @@
-%% PBL Project 2
+%% PBL Project 2^M
 % PBL Group 4:
 % Sophia Burgueno, Anika Kulkarni, Valentina Lopez, 
 % Ryan Nguyen, Krishna Ravi, Tatum Thompson, Felix Wang
 
 % Code Contributors:
-% Anika Kulkarni    Last Commit: 10/15/2025
+% Anika Kulkarni    Last Commit: 10/16/2025
 % Krishna Ravi      Last Commit: 
 % Felix Wang        Last Commit: 10/5/2025
 
@@ -53,17 +53,17 @@ CD | (6,1) | (6,2) | (6,3) | (6,4) | (6,5) | (6,6) | (6,7) | (6,8) | (6,9)
 %}
 
 % Inlet filtrate concentrations at renal corpuscle
-C0 = [140, 102, 5.714, 4.691, 4.350, 24, 0.823, 0.395, 0.092]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
-% FILL THE REST
+C0 = [140, 103, 5, 5, 0, 0, 0, 0, 0]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
+% In mmol/L
 
 % Reabsorption fractions per constituent (of incoming stream) per unit
 % This is what's returned to interstitial fluid
-reabs_frac = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0; % RC
-              0.65, 0.65, 0.50, 0.99, 0.65, 0.85, 0.25, 0.80,1.20 ; % PT
-              0, 0, 0, 0, 0, 0.15, 0,0,0; % DL (salt-impermeable)
+reabs_frac = [0, 0, 0, 0, 0, 0, 0, 0, 0; % RC
+              0.65, 0.65, 0.50, 0.99, 0.65, 0.85, 0.25, 0.80, 1.20 ; % PT
+              0, 0, 0, 0, 0, 0.15, 0, 0, 0; % DL (salt-impermeable)
               0.25, 0.25, 0, 0, 0.25, 0, 0.7, 0, 0; % AL (water-impermeable, salt-permeable)
-              0.05, 0.05, 0, 0, 0, 0, 0.05, 0.05, 0 ; % DT
-              0.03, 0.03, 0.40, 0, 0, 0, 0 ; % CD
+              0.05, 0.05, 0, 0, 0, 0, 0.05, 0.05, 0; % DT
+              0, 0, 0.03, 0.03, 0.40, 0, 0, 0, 0; % CD
              ];
 % FILL THE REST
 
@@ -79,14 +79,14 @@ concs = zeros(nSeg,nSol);
 snGFR = 60 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
 
 % Volumetric flow rates per constituent per unit
-vol_flow_rates = snGFR * ones(nSeg,1); % nL/min
-% Set up so molar flow rate = vol flow rate * conc, so mL/min * mM = nmol/min
+vol_flow_rates = snGFR * ones(nSeg,1); % mL/min
+% Set up so molar flow rate = vol flow rate * conc, so mL/min * mM = mmol/min
 
 % Calculations
 % -----------------------------
 % Initialize input stream to first unit (RC)
-concs(1,:) = C0;
-molar_flow_rates(1,:) = snGFR .* concs(1,:); % nmol/min
+concs(1,:) = C0; % mmol/min, aka mM
+molar_flow_rates(1,:) = snGFR .* concs(1,:); % mmol/min
 
 % Propagate flow rates by unit/segment
 for i = 2:nSeg
@@ -121,25 +121,41 @@ end
 disp('6x9 Molar Flow Rate Matrix (rows = RC, PT, DL, AL, DT, CD; columns = Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, phosphate, creatinine):');
 disp(molar_flow_rates);
 
-for k = 1:nSol
-    % Concentrations
-    subplot(2, nSol, k);
-    plot(1:nSeg, concs(:,k), '-o', 'LineWidth', 1.5); 
-    grid on;
-    title(chemicals(k) + " Concentration");
-    xticks(1:nSeg); 
-    xticklabels(units); 
-    ylabel('mM');
+colors = ["#d53e4f", "#f46d43", "#fdae61", "#fee08b", ...
+          "#ffffbf", "#e6f598", "#abdda4", "#66c2a5", "#3288bd"];
 
-    % Molar flow rates
-    subplot(2, nSol, nSol + k);
-    plot(1:nSeg, molar_flow_rates(:,k), '-o', 'LineWidth', 1.5); 
-    grid on;
-    title(chemicals(k) + " Flow");
-    xticks(1:nSeg); 
-    xticklabels(units); 
-    ylabel('nmol/min');
+% Figure 1: Concentrations
+figure('Units','normalized','Position',[0.05 0.05 0.9 0.8])
+tiledlayout(2, 5, 'TileSpacing','compact', 'Padding','compact')
+
+for k = 1:nSol
+    nexttile
+    plot(1:nSeg, concs(:,k), '-', 'Color', colors(k), 'LineWidth', 2);
+    grid on
+    title(chemicals(k) + " Concentration", 'FontWeight','bold', 'FontSize', 12)
+    xticks(1:nSeg)
+    xticklabels(units)
+    ylabel('mM')
 end
+
+sgtitle('Solute Concentrations Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
+
+% Figure 2: Flow Rates
+figure('Units','normalized','Position',[0.05 0.05 0.9 0.8])
+tiledlayout(2, 5, 'TileSpacing','compact', 'Padding','compact')
+
+for k = 1:nSol
+    nexttile
+    plot(1:nSeg, molar_flow_rates(:,k), '-', 'Color', colors(k), 'LineWidth', 2);
+    grid on
+    title(chemicals(k) + " Flow", 'FontWeight','bold', 'FontSize', 12)
+    xticks(1:nSeg)
+    xticklabels(units)
+    ylabel('mmol/min')
+end
+
+sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
 
 
 
