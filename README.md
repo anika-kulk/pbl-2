@@ -33,7 +33,7 @@ Mass Reabsorbption Fractions will be stored in a $6\times 9$ Matrix
 
 $$\text{reabs}\textunderscore\text{frac}()$$
 $$\begin{bmatrix}
-&⠀Na^+⠀~&⠀Cl^-⠀&\text{ Urea }&\text{Glucose}&⠀K^+⠀&HCO_3^-&Mg^{2+}~&~PO_4^{3-}~&\text{Creatinine}\\
+&⠀\text{Na}^+⠀~&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
 \text{RP}_1&0    &0    &     &0    &0    &0    &0    &0    &0\\
 \text{PT}_2&0.65 &0.50 &0.50 &0.99 &0.50 &0.80 &0.20 &0.75 &sec\\
 \text{DL}_3&0    &0    &sec  &0    &?    &0.15 &0    &0    &0\\
