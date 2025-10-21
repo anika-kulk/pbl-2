@@ -1,6 +1,6 @@
 %% PBL Project 2
 % PBL Group 4:
-% Sophia Burgueno, Anika Kulkarni, Valentina Lopez, 
+% Sophia Burgueno, Anika Kulkarni, Valentina Lopez,
 % Ryan Nguyen, Krishna Ravi, Tatum Thompson, Felix Wang
 
 % Code Contributors:
@@ -25,7 +25,7 @@
 % (2) Active/passive transport not explicitly modeled
 % (3) Tubuloglomerular feedback not included
 
-function[molar_flow_rates, concs] = kidney_model(C0, snGFR)
+function[molar_flow_rates, concs] = kidney_model(C0, snGFR, condition)
 
 % Indices
 % -----------------------------
@@ -67,41 +67,41 @@ CD | (8,1) | (8,2) | (8,3) | (8,4) | (8,5) | (8,6) | (8,7) | (8,8) | (8,9) | (8,
 
 % Reabsorption fractions per constituent (of incoming stream) per unit
 % This is what's returned to interstitial fluid
-% Solutes    Na+,     Cl-,     Urea,    Glucose, K+,      HCO3-,   Mg2+,    PO43-,   Creat,   Ca2+ 
+% Solutes    Na+,     Cl-,     Urea,    Glucose, K+,      HCO3-,   Mg2+,    PO43-,   Creat,   Ca2+
 reabs_frac = [0,       0,       0,       0,       0,       0,       0,       0,       0,       0;    % RC
-              0.33,    0.33,    0,       0.90,    0,       0.80,    0,       0.35,    0,       0.35; % PT, S1
-              0.328,   0.328,   0,       0.09,    0,       0.10,    0,       0.25,    0,       0.25; % PT, S2
-              0.222,   0.222,   0.50,    0,       0.60,    0,       0.20,    0.10,    0,       0.10; % PT, S3
-              0,       0,       0,       0,       0,       0.15,    0,       0,       0,       0;    % DL (salt-impermeable)
-              0.25,    0.25,    0,       0,       0.25,    0,       0.7,     0,       0,       0.20; % AL (water-impermeable, salt-permeable)
-              0.05,    0.05,    0,       0,       0,       0.05,    0.05,    0.05,    0,       0.10; % DT
-              0,       0,       0,       0,       0,       0,       0,       0,       0,       0.05; % CD
-             ];
+    0.33,    0.33,    0,       0.90,    0,       0.80,    0,       0.35,    0,       0.35; % PT, S1
+    0.328,   0.328,   0,       0.09,    0,       0.10,    0,       0.25,    0,       0.25; % PT, S2
+    0.222,   0.222,   0.50,    0,       0.60,    0,       0.20,    0.10,    0,       0.10; % PT, S3
+    0,       0,       0,       0,       0,       0.15,    0,       0,       0,       0;    % DL (salt-impermeable)
+    0.25,    0.25,    0,       0,       0.25,    0,       0.7,     0,       0,       0.20; % AL (water-impermeable, salt-permeable)
+    0.05,    0.05,    0,       0,       0,       0.05,    0.05,    0.05,    0,       0.10; % DT
+    0,       0,       0,       0,       0,       0,       0,       0,       0,       0.05; % CD
+    ];
 % Note that Na/Cl reabsorption can increase to 0.02/0.03 when producing dilute urine (over-hydration); also when high salt intake (need to dilute urine)
 % Note that urea is reabsorbed when producing concentrated urine to conserve water, as urea establishes an osmotic gradient (de-hydration)
-      % However, because this is tightly regulated by ADH and other hormones, this is outside the scope of this model
+% However, because this is tightly regulated by ADH and other hormones, this is outside the scope of this model
 reabs_frac = max(0, min(reabs_frac, 0.999)); % Safety clamp
 
 % Secretion fractions per constituent (of incoming stream) per unit
 % This is what's secreted by bloodstream into tubule post-RC (initial filtration)
-% Solutes    Na+,     Cl-,     Urea,    Glucose, K+,      HCO3-,   Mg2+,    PO43-,   Creat,   Ca2+ 
+% Solutes    Na+,     Cl-,     Urea,    Glucose, K+,      HCO3-,   Mg2+,    PO43-,   Creat,   Ca2+
 sec_frac =   [0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % RC
-              0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % PT, S1
-              0,       0,       0,       0,       0,       0,       0,       0,       0.30,    0; % PT, S2
-              0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % PT, S3
-              0,       0,       0.15,    0,       0,       0,       0,       0,       0,       0; % DL (salt-impermeable)
-              0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % AL (water-impermeable, salt-permeable)
-              0,       0,       0,       0,       0.10,    0,       0,       0,       0,       0; % DT
-              0,       0,       0,       0,       0.10,    0,       0,       0,       0,       0; % CD
-             ];
+    0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % PT, S1
+    0,       0,       0,       0,       0,       0,       0,       0,       0.30,    0; % PT, S2
+    0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % PT, S3
+    0,       0,       0.15,    0,       0,       0,       0,       0,       0,       0; % DL (salt-impermeable)
+    0,       0,       0,       0,       0,       0,       0,       0,       0,       0; % AL (water-impermeable, salt-permeable)
+    0,       0,       0,       0,       0.10,    0,       0,       0,       0,       0; % DT
+    0,       0,       0,       0,       0.10,    0,       0,       0,       0,       0; % CD
+    ];
 sec_frac = max(0, min(sec_frac, 0.999)); % Safety clamp
 
 % Molar flow rates per constituent per unit
-% To be solved for; preallocated for now 
+% To be solved for; preallocated for now
 molar_flow_rates = zeros(nSeg,nSol);
 
 % Concentrations per constituent per unit
-% To be solved for; preallocated for now 
+% To be solved for; preallocated for now
 concs = zeros(nSeg,nSol); % mmol/L
 
 % Volumetric flow rates per constituent per unit
@@ -118,8 +118,8 @@ molar_flow_rates(1,:) = snGFR .* concs(1,:) * 1e-3; % mmol/min; snGFR TAKEN AS I
 % -----------------------------
 % Adjust reabsorption fractions for salt in the case of high salt intake - whether a one-off event or hypernatremia/hyperchloremia
 if concs(1, 1) > 140.0000 && concs(1, 2) > 106
-      reabs_frac(8,1) = 0.02
-      reabs_frac(8,2) = 0.03
+      sec_frac(8,1) = 0.02;  % Na+
+      sec_frac(8,2) = 0.03;  % Cl-    
 end
 
 % Math Propagation
@@ -136,14 +136,14 @@ for i = 2:nSeg
     end
 
     % Fill row i of 8x10 matrix
-    molar_flow_rates(i,:) = N_out; % Given that P_out is a vector containing flow rates of all chemicals at that unit              
+    molar_flow_rates(i,:) = N_out; % Given that P_out is a vector containing flow rates of all chemicals at that unit
     concs(i,:) = molar_flow_rates(i,:) ./ vol_flow_rates(i); % mmol/min / mL/min = mmol/L
 end
 
 % Outlets in grams/min
 grams_per_min_out = zeros(1,nSol);
 for j = 1:nSol
-    grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-3; % mmol/min * g/mol * 1e-3 = g/min   
+    grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-3; % mmol/min * g/mol * 1e-3 = g/min
 end
 
 disp("Outlet (collecting duct) in grams/min per solute: ");
@@ -175,7 +175,7 @@ for k = 1:nSol
     ylim('auto')
 end
 
-sgtitle('Solute Concentrations Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+sgtitle({"Solute Concentrations Along Nephron Segments", "Test Case: " + condition}, 'FontSize', 14, 'FontWeight','bold')
 
 
 % Figure 2: Flow Rates
@@ -193,35 +193,115 @@ for k = 1:nSol
     ylim('auto')
 end
 
-sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+sgtitle({"Molar Flow Rates Along Nephron Segments", "Test Case: " + condition}, 'FontSize', 14, 'FontWeight','bold')
+
+end
+
+% Test Cases
+% -----------------------------
+function[conc_out, snGFR_out] = test_cases(C0, snGFR, condition)
+% Implements test cases by adjusting inlet concentrations and single-nephron GFR accordingly
+% condition: 'healthy', 'ckd3b' (CKD, stage 3b), 't2dm_early' (early type 2
+% diabetes), 't2dm_late' (late type 2 diabetes), 'htn' (hypertension)
+
+% Re-indexing for convenience
+Na = 1;
+Cl = 2;
+Urea = 3;
+Gluc = 4;
+K = 5;
+HCO3 = 6;
+Mg = 7;
+PO4 = 8;
+Creat = 9;
+Ca = 10;
+
+switch lower(condition)
+    case 'healthy'
+        % No change, using base values
+
+    case 'ckd3b' % Note that we are modeling stage 3b as this marks substantial loss of kidney function and sure-fire diagnosis of CKD
+        snGFR = snGFR * 37/105; % Using a scaling factor as reference as snGFR values not available
+        % Normal GFR = 90-120 mL/min; Stage 3b GFR = 30-44 mL/min
+
+        % Creatinine level increased by 60% 
+        % Typical creatinine level: 0.7-1.3 mg/dL in males, 0.6-1.1 mg/dL in females
+        % CKD3b creatinine level: 1.2-2.0 mg/dL in males, 1.8-3.0 mg/dL in females
+        % 50-70% increase
+        C0(Creat) = C0(Creat) * 1.6; 
+
+        % Urea level increased by 40% (estimate)
+        C0(Urea) = C0(Urea) * 1.4; 
+
+        % Potassium level increased by 15% (estimate; hyperkalemia)
+        C0(K) = C0(K) * 1.15;
+
+        % Phosphate level increased by 25% (estimate; due to degradation of phosphate secretion)
+        C0(PO4) = C0(PO4) * 1.25;
+        
+        % Bicarbonate level decreased, not significantly (sign of metabolic acidosis)
+        C0(HCO3) = C0(HCO3) * 0.90;
+
+        % Calcium level decreased, not significantly (sign of hypocalcemia)
+        C0(Ca) = C0(Ca) * 0.90;
+    
+    case 't2dm_early' % Separating early and late stages because early T2DM = hyperfiltration
+        snGFR = snGFR * 1.125; % Approximating hyperfiltration
+        % Normal GFR = 120 mL/min; Early T2DM GFR = 120-150 mL/min, median at 135 mL/min
+
+        C0(Gluc) = 7; % 7 mmol/L = 126 mg/dL, as an average plasma concentration of glucose during early hyperglycemia
+
+    case 't2dm_late' % Separating early and late stages because late T2DM = hypofiltration
+        snGFR = snGFR * 22/105; % Approximating hypofiltration
+        % Normal GFR = 90-120 mL/min; Late T2DM GFR = 15-29 mL/min, median at 22 mL/min (correlated with Stage 4-5 CKD)
+
+        C0(Gluc) = 9.7; % 8.3-11.1 mmol/L, as an average plasma concentration of glucose during late stage hyperglycemia
+        C0(K) = C0(K) * 1.30; % Jumps to greater than 6 mmol/L
+        C0(PO4) = C0(PO4) * 1.15; % Jumps to greater than 1.5 mmol/L
+        C0(HCO3) = C0(HCO3) * 0.85; % Not a substantial decrease but still indicative of metabolic acidosis
+
+    case 'htn'
+        snGFR = snGFR * 0.90;  % Slight decrease to reflect vascular damage
+
+end
+
+conc_out = C0;
+snGFR_out = snGFR;
 
 end
 
 % Inputs
 % -----------------------------
 
-% DEFAULT TEST CASE: healthy kidney
+% BASELINE INLET CONCENTRATIONS
 % Inlet filtrate concentrations at renal corpuscle, as INPUT into main function
 C0 = [140.0000, 102.0000, 5.714, 4.6905, 4.3500, 24.0000, 0.8225, 0.3950, 0.0920, 0.5700]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine, Ca2+ 
 % In mmol/L
-
-% Input concentrations
 snGFR = 79 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
 % A healthy kidney has a single-nephron GFR of approximately 79 +/- 42 nanoliters per minute (nL/min).
 
-kidney_model(C0, snGFR)
+% Healthy
+[C0_h, sn_h] = test_cases(C0, snGFR, 'healthy');
+kidney_model(C0_h, sn_h, "Healthy");
 
+% CKD3b
+[C0_ckd, sn_ckd] = test_cases(C0, snGFR, 'ckd3b');
+kidney_model(C0_ckd, sn_ckd, "CKD3b");
 
+% T2DM Early
+[C0_dme, sn_dme] = test_cases(C0, snGFR, 't2dm_early');
+kidney_model(C0_dme, sn_dme, "T2DM (Early)");
 
+% T2DM Late
+[C0_dml, sn_dml] = test_cases(C0, snGFR, 't2dm_late');
+kidney_model(C0_dml, sn_dml, "T2DM (Late)");
 
+% Hypertension
+[C0_htn, sn_htn] = test_cases(C0, snGFR, 'htn');
+kidney_model(C0_htn, sn_htn, "Hypertension");
 
-
-
-
-
-
-
-
-
-
-
+% Combination of all 3, modeling severe CKD 
+[C0_tmp,  sn_tmp]  = test_cases(C0,      snGFR, 'ckd3b');
+[C0_tmp,  sn_tmp]  = test_cases(C0_tmp,  sn_tmp, 'htn');
+[C0_combo, sn_combo] = test_cases(C0_tmp, sn_tmp, 't2dm_late');
+kidney_model(C0_combo, sn_combo, "CKD3b + HTN + T2DM (Late)");
