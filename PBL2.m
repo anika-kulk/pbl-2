@@ -107,7 +107,7 @@ molar_flow_rates(1,:) = snGFR .* concs(1,:) * 1e-3; % mmol/min; snGFR TAKEN AS I
 % Conditional
 % -----------------------------
 % Adjust reabsorption fractions for salt in the case of high salt intake - whether a one-off event or hypernatremia/hyperchloremia
-if concs(1, 1) > 140.0000 & concs(1, 2) > 106
+if concs(1, 1) > 140.0000 && concs(1, 2) > 106
       reabs_frac(8,1) = 0.02
       reabs_frac(8,2) = 0.03
 end
@@ -200,6 +200,7 @@ snGFR = 79 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule f
 % A healthy kidney has a single-nephron GFR of approximately 79 +/- 42 nanoliters per minute (nL/min).
 
 kidney_model(C0, snGFR)
+
 
 
 
