@@ -5,7 +5,7 @@
 
 % Code Contributors:
 % Anika Kulkarni    Last Commit: 10/16/2025
-% Krishna Ravi      Last Commit: 
+% Krishna Ravi      Last Commit: 10/20/2025
 % Felix Wang        Last Commit: 10/5/2025
 
 % General Housekeeping:
@@ -53,7 +53,7 @@ CD | (6,1) | (6,2) | (6,3) | (6,4) | (6,5) | (6,6) | (6,7) | (6,8) | (6,9)
 %}
 
 % Inlet filtrate concentrations at renal corpuscle
-C0 = [140, 103, 5, 5, 0, 0, 0, 0, 0]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
+C0 = [140, 102, 5.71, 4.69, 4.35, 24.00, 0.83, 0.40, 0.09]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, PO43-, Creatinine 
 % In mmol/L
 
 % Reabsorption fractions per constituent (of incoming stream) per unit
@@ -158,6 +158,7 @@ for k = 1:nSol
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
