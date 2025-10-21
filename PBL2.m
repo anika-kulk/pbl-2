@@ -59,13 +59,13 @@ C0 = [140, 103, 5, 5, 0, 0, 0, 0, 0]; % Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+
 % Reabsorption fractions per constituent (of incoming stream) per unit
 % This is what's returned to interstitial fluid
 reabs_frac = [0, 0, 0, 0, 0, 0, 0, 0, 0; % RC
-              0.65, 0.65, 0.50, 0.99, 0.65, 0.85, 0.25, 0.80, 1.20 ; % PT
+              0.65, 0.65, 0.50, 0.99, 0.65, 0.85, 0.25, 0.80, 0 ; % PT
               0, 0, 0, 0, 0, 0.15, 0, 0, 0; % DL (salt-impermeable)
               0.25, 0.25, 0, 0, 0.25, 0, 0.7, 0, 0; % AL (water-impermeable, salt-permeable)
               0.05, 0.05, 0, 0, 0, 0, 0.05, 0.05, 0; % DT
               0, 0, 0.03, 0.03, 0.40, 0, 0, 0, 0; % CD
              ];
-% FILL THE REST
+reabs_frac = max(0, min(reabs_frac, 0.999)); % Safety clamp
 
 % Molar flow rates per constituent per unit
 % To be solved for; preallocated for now 
@@ -73,29 +73,29 @@ molar_flow_rates = zeros(nSeg,nSol);
 
 % Concentrations per constituent per unit
 % To be solved for; preallocated for now 
-concs = zeros(nSeg,nSol);
+concs = zeros(nSeg,nSol); % mmol/L
 
 % Input concentrations
 snGFR = 60 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
 
 % Volumetric flow rates per constituent per unit
 vol_flow_rates = snGFR * ones(nSeg,1); % mL/min
-% Set up so molar flow rate = vol flow rate * conc, so mL/min * mM = mmol/min
+% Set up so molar flow rate = vol flow rate * conc, so mL/min * mM * 1 L/1000 mL = mmol/min
 
 % Calculations
 % -----------------------------
 % Initialize input stream to first unit (RC)
-concs(1,:) = C0; % mmol/min, aka mM
-molar_flow_rates(1,:) = snGFR .* concs(1,:); % mmol/min
+concs(1,:) = C0; % mmol/L, aka mM
+molar_flow_rates(1,:) = snGFR .* concs(1,:) * 1e-3; % mmol/min
 
 % Propagate flow rates by unit/segment
 for i = 2:nSeg
 
     % Accounting for each chemical constituent
     N_in  = molar_flow_rates(i-1,:); % Vector with inflows for all chemicals (mmol/min)
-    N_out = N_in .* (1 - reabs_frac(i,:)); % Vector with outflows for all chemicals
+    N_out = N_in .* (1 - reabs_frac(i,:) + sec_frac(i,:)); % Vector with outflows for all chemicals
 
-    if N_out < 0
+    if any(N_out < 0)
         errordlg("Negative Flow Rate at Row " + i + "!!!")
     end
 
@@ -136,7 +136,7 @@ for k = 1:nSol
     xticks(1:nSeg)
     xticklabels(units)
     ylabel('mM')
-    ylim([0, 10])
+    ylim('auto')
 end
 
 sgtitle('Solute Concentrations Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
@@ -154,10 +154,11 @@ for k = 1:nSol
     xticks(1:nSeg)
     xticklabels(units)
     ylabel('mmol/min')
-    ylim([0, 10])
+    ylim('auto')
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
