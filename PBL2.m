@@ -20,6 +20,11 @@
 % END GOAL: line plot of flow rates of each component per nephronal unit
 % Nephronal unit = pseudomeasure of time
 
+% LIMITATIONS:
+% (1) Water flow held constant (no ADH modulation)
+% (2) Active/passive transport not explicitly modeled
+% (3) Tubuloglomerular feedback not included
+
 function[molar_flow_rates, concs] = kidney_model(C0, snGFR)
 
 % Indices
@@ -43,6 +48,11 @@ nSol = length(chemicals);
 
 % Data Matrices
 % -----------------------------
+% Fractions derived from a host of literature sources, primarily:
+% - Weinstein, A. M. Seldin and Giebisch's The Kidney. Elsevier Inc., 2008. 849-887.1081-1142
+% - Vallon, V. Am J Physiol Cell Physiol. 2011 Jan; 300(1): C6-C8.
+% - Oregon State University, open courseware
+
 %{
       Na+     Cl-    Urea    Gluc     K+     HCO3-   Mg2+    PO43-   Creat    Ca2+
 RC | (1,1) | (1,2) | (1,3) | (1,4) | (1,5) | (1,6) | (1,7) | (1,8) | (1,9) | (1,10)
@@ -200,6 +210,7 @@ snGFR = 79 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule f
 % A healthy kidney has a single-nephron GFR of approximately 79 +/- 42 nanoliters per minute (nL/min).
 
 kidney_model(C0, snGFR)
+
 
 
 
