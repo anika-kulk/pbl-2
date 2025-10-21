@@ -147,7 +147,7 @@ end
 disp('8x10 Molar Flow Rate Matrix (rows = RC, S1, S2, S3, DL, AL, DT, CD; columns = Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, phosphate, creatinine, Ca2+):');
 disp(molar_flow_rates);
 
-colors = ["#001219", "#005f73", "#0a9396", "#94d2bd", "e9d8a6", ...
+colors = ["#012966", "#005f73", "#0a9396", "#94d2bd", "#e9d8a6", ...
           "#ee9b00", "#ca6702", "#bb3e03", "#ae2012", "#9b2226"];
 
 % Figure 1: Concentrations
@@ -200,6 +200,7 @@ snGFR = 79 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule f
 % A healthy kidney has a single-nephron GFR of approximately 79 +/- 42 nanoliters per minute (nL/min).
 
 kidney_model(C0, snGFR)
+
 
 
 
