@@ -76,7 +76,8 @@ molar_flow_rates = zeros(nSeg,nSol);
 concs = zeros(nSeg,nSol); % mmol/L
 
 % Input concentrations
-snGFR = 60 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
+snGFR = 79 / 1000; % nL/min * 1e-3 = mL/min (filtrate into RC/Bowman's capsule for a healthy kidney)
+% A healthy kidney has a single-nephron GFR of approximately 79 +/- 42 nanoliters per minute (nl/min).
 
 % Volumetric flow rates per constituent per unit
 vol_flow_rates = snGFR * ones(nSeg,1); % mL/min
@@ -158,6 +159,7 @@ for k = 1:nSol
 end
 
 sgtitle('Molar Flow Rates Along Nephron Segments', 'FontSize', 14, 'FontWeight','bold')
+
 
 
 
