@@ -1,48 +1,64 @@
 ## Model
-$$\text{Renal Corpuscle}\longrightarrow\text{Proximal Tubule, S1/S2/S3}\longrightarrow\text{Descending Limb}\longrightarrow\text{Ascending Limb}\longrightarrow\text{Distal Tubule}\longrightarrow\text{Collecting Duct}$$
+$$\text{Renal Corpuscle}⠀\longrightarrow⠀\text{Proximal Tubule: S1/S2/S3}⠀\longrightarrow⠀\text{Descending Limb}⠀\longrightarrow⠀\text{Ascending Limb}⠀\longrightarrow⠀\text{Distal Tubule}⠀\longrightarrow⠀\text{Collecting Duct}$$
 
 <br>
 
 ## Conservation Equation
 For Each Solute $s$ in 1 Nephron Unit:
 
-$$\text{In }-\text{ Out }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}~~=~~0$$
+$$\text{In }-\text{ Out }-{\color{green}\text{ Reabsorbed }}+{\color{red}\text{ Secreted }}~~=~~0$$
 
 - *Assuming steady-state system, no reactions*
-- *Assuming no secretion*
 - $\color{green}\text{Reabsorbed}$ = *From filtrate into interstitial fluid*
 - $\color{red}\text{Secreted}$ = *From bloodstream into filtrate*
 <br>
 
 To Calculate the Flow Rate per Unit, Rearrange the Conservation Equation:
 
-$$\text{ Out}⠀=⠀\text{In }-{\color{green}\text{ Reabsorbed }}+{\color{red}\cancel{\text{ Secreted }}}$$
+$$\text{ Out}⠀=⠀\text{In }-{\color{green}\text{ Reabsorbed }}+{\color{red}\text{ Secreted }}$$
 
 ## Equation Form
 $$\dot\psi_{reabs}⠀=⠀\dot\psi_{in}w_{reabs}$$
 $$\dot\psi_{sec}⠀=⠀\dot\psi_{in}w_{sec}$$
 
 $$\begin{array}{l}
-\dot\psi_{out}&=&\dot\psi_{in}⠀-⠀\dot\psi_{reabs}⠀+⠀\cancel{\dot\psi_{sec}}\\
+\dot\psi_{out}&=&\dot\psi_{in}⠀-⠀\dot\psi_{reabs}⠀+⠀\dot\psi_{sec}\\
 &=&\dot\psi_{in}⠀-⠀\dot\psi_{in}(w_{reabs}) + \dot\psi_{in}(w_{sec})\\
 &=&\dot\psi_{in}[1~-~w_{reabs} + w_{sec}]
 \end{array}$$
 
 
 ## Data
-Mass Reabsorbption Fractions will be stored in a $8\times 10$ Matrix
+Mass Reabsorbption & Secretion Fractions will be stored in a $8\times 10$ Matrix
 - Each Row is a Nephronal Unit
 - Each Column is a Selected Chemical Constituent
 
 $$\text{reabs}\textunderscore\text{frac}()$$
 $$\begin{bmatrix}
-&⠀\text{Na}^+⠀~&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
-\text{RP}_1&0    &0    &0    &0    &0    &0    &0    &0    &0\\
-\text{PT}_2&0.65 &0.50 &0.50 &0.99 &0.50 &0.80 &0.20 &0.75 &sec\\
-\text{DL}_3&0    &0    &\color{red}sec  &0    &\color{red}?    &0.15 &0    &0    &0\\
-\text{AL}_4&0.25 &0.20 &0    &0    &0.20 &0    &0.65 &0    &0\\
-\text{DT}_5&0.05 &0.05 &0    &0    &\color{red}?    &0    &0.05 &0.05 &0\\
-\text{CD}_6&0.02 &0.03 &\color{red}?    &0    &\color{red}?    &1.00 &0    &1.00 &0\\
+&\text{⠀Na}^+⠀&\text{⠀Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{HCO}_3^-&\text{⠀Mg}^{2+}⠀&\text{PO}_4^{3-}&\text{Creatinine}&⠀\text{Ca}^{2+}⠀\\
+\text{RP}_1&0     &0     &0    &0    &0    &0    &0    &0    &0 &0\\
+\text{S1}_2&0.33  &0.33  &0    &0.90 &0    &0.80 &0    &0.35 &0 &0.35\\
+\text{S2}_3&0.328 &0.328 &0    &0.09 &0    &0.10 &0    &0.25 &0 &0.25\\
+\text{S3}_4&0.222 &0.222 &0.50 &0    &0.60 &0    &0.20 &0.10 &0 &0.10\\
+\text{DL}_5&0     &0     &0    &0    &0    &0.15 &0    &0    &0 &0\\
+\text{AL}_6&0.25  &0.25  &0    &0    &0.25 &0    &0.7  &0    &0 &0.20\\
+\text{DT}_7&0.05  &0.05  &0    &0    &0    &0.05 &0.05 &0.05 &0 &0.10\\
+\text{CD}_8&0-0.02&0-0.03&0    &0    &0    &0    &0    &0    &0 &0.05\\
+\end{bmatrix}$$
+
+<br>
+
+$$\text{sec}\textunderscore\text{frac}()$$
+$$\begin{bmatrix}
+&\text{⠀Na}^+⠀&\text{⠀Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{HCO}_3^-&\text{⠀Mg}^{2+}⠀&\text{PO}_4^{3-}&\text{Creatinine}&⠀\text{Ca}^{2+}⠀\\
+\text{RP}_1&0 &0 &0    &0 &0    &0 &0 &0 &0    &0 \\
+\text{S1}_2&0 &0 &0    &0 &0    &0 &0 &0 &0    &0 \\
+\text{S2}_3&0 &0 &0    &0 &0    &0 &0 &0 &0.30 &0 \\
+\text{S3}_4&0 &0 &0    &0 &0    &0 &0 &0 &0    &0 \\
+\text{DL}_5&0 &0 &0.15 &0 &0    &0 &0 &0 &0    &0 \\
+\text{AL}_6&0 &0 &0    &0 &0    &0 &0 &0 &0    &0 \\
+\text{DT}_7&0 &0 &0    &0 &0.10 &0 &0 &0 &0    &0 \\
+\text{CD}_8&0 &0 &0    &0 &0.10 &0 &0 &0 &0    &0 \\
 \end{bmatrix}$$
 
 <br>
@@ -51,8 +67,8 @@ Initial Concentrations of Chemical Constituents in Filtrate
 
 $$\text{concs}()$$
 $$\begin{bmatrix}
-\text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine} + &\text{ Ca}^{2+}\\
-140 & 103 & 5 & 5 &\color{red}? & \color{red}? & \color{red}? &  \color{red}? & \color{red}?
+\text{⠀⠀Na}^+⠀&\text{⠀Cl}^-⠀&\text{ ⠀Urea⠀ }&\text{Glucose}&⠀\text{K}^+⠀&\text{HCO}_3^-&\text{⠀Mg}^{2+}⠀&\text{PO}_4^{3-}&\text{Creatinine}&⠀\text{Ca}^{2+}⠀\\
+140.0000 & 102.0000 & 5.714 & 4.6905 & 4.3500 & 24.0000 & 0.8225 & 0.3950 & 0.0920 & 0.5700
 \end{bmatrix}\frac{\text{mmol}}{\text{L}}$$
 
 <br>
