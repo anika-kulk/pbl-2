@@ -146,6 +146,7 @@ for j = 1:nSol
     grams_per_min_out(j) = molar_flow_rates(end,j) * molec_weights(j) * 1e-3; % mmol/min * g/mol * 1e-3 = g/min
 end
 
+disp(condition); 
 disp("Outlet (collecting duct) in grams/min per solute: ");
 for k = 1:nSol
     disp(chemicals(k) + ": " + num2str(grams_per_min_out(k)));
@@ -305,4 +306,5 @@ kidney_model(C0_htn, sn_htn, "Hypertension");
 [C0_tmp,  sn_tmp]  = test_cases(C0_tmp,  sn_tmp, 'htn');
 [C0_combo, sn_combo] = test_cases(C0_tmp, sn_tmp, 't2dm_late');
 kidney_model(C0_combo, sn_combo, "CKD3b + HTN + T2DM (Late)");
+
 
