@@ -111,8 +111,7 @@ $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
 6. A combination of 2, 4, 5
 
 ## Parametrization and Generalizability
-1. Conditional accounting for higher salt intake - adjusting NaCl secretion accordingly
-2. Robust test cases - CKD Stage 3b, type II diabetes (early and late), hypertension, and a combination of CKD Stage 3b, late type II diabetes, and hypertension (as would typically occur in a CKD patient)
-3. Pseudomodeling of pH modulation via bicarbonate accounting
-4. Accounting for key constituents that play a role in CKD comorbidities (i.e. glucose for diabetes modeling, hyperkalemia/hyperchloremia/hypernatremia/etc.)
+1. Robust test cases - CKD Stage 3b, type II diabetes (early and late), hypertension, and a combination of CKD Stage 3b, late type II diabetes, and hypertension (as would typically occur in a CKD patient)
+2. Pseudomodeling of pH modulation via bicarbonate accounting
+3. Accounting for key constituents that play a role in CKD comorbidities (i.e. glucose for diabetes modeling, hyperkalemia/hyperchloremia/hypernatremia/etc.)
 
