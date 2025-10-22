@@ -158,6 +158,9 @@ end
 disp('8x10 Molar Flow Rate Matrix (rows = RC, S1, S2, S3, DL, AL, DT, CD; columns = Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, phosphate, creatinine, Ca2+):');
 disp(molar_flow_rates);
 
+disp('8x10 Concentration Matrix (rows = RC, S1, S2, S3, DL, AL, DT, CD; columns = Na+, Cl-, Urea, Glucose, K+, HCO3-, Mg2+, phosphate, creatinine, Ca2+):');
+disp(concs);
+
 colors = ["#012966", "#005f73", "#0a9396", "#94d2bd", "#e9d8a6", ...
           "#ee9b00", "#ca6702", "#bb3e03", "#ae2012", "#9b2226"];
 
@@ -306,5 +309,6 @@ kidney_model(C0_htn, sn_htn, "Hypertension");
 [C0_tmp,  sn_tmp]  = test_cases(C0_tmp,  sn_tmp, 'htn');
 [C0_combo, sn_combo] = test_cases(C0_tmp, sn_tmp, 't2dm_late');
 kidney_model(C0_combo, sn_combo, "CKD3b + HTN + T2DM (Late)");
+
 
 
