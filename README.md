@@ -1,5 +1,5 @@
 ## Model
-$$\text{Renal Corpuscle}\longrightarrow\text{Proximal Tubule}\longrightarrow\text{Descending Limb}\longrightarrow\text{Ascending Limb}\longrightarrow\text{Distal Tubule}\longrightarrow\text{Collecting Duct}$$
+$$\text{Renal Corpuscle}\longrightarrow\text{Proximal Tubule, S1/S2/S3}\longrightarrow\text{Descending Limb}\longrightarrow\text{Ascending Limb}\longrightarrow\text{Distal Tubule}\longrightarrow\text{Collecting Duct}$$
 
 <br>
 
@@ -24,13 +24,13 @@ $$\dot\psi_{sec}⠀=⠀\dot\psi_{in}w_{sec}$$
 
 $$\begin{array}{l}
 \dot\psi_{out}&=&\dot\psi_{in}⠀-⠀\dot\psi_{reabs}⠀+⠀\cancel{\dot\psi_{sec}}\\
-&=&\dot\psi_{in}⠀-⠀\dot\psi_{in}(w_{reabs})\\
-&=&\dot\psi_{in}[1~-~w_{reabs}]
+&=&\dot\psi_{in}⠀-⠀\dot\psi_{in}(w_{reabs}) + \dot\psi_{in}(w_{sec})\\
+&=&\dot\psi_{in}[1~-~w_{reabs} + w_{sec}]
 \end{array}$$
 
 
 ## Data
-Mass Reabsorbption Fractions will be stored in a $6\times 9$ Matrix
+Mass Reabsorbption Fractions will be stored in a $8\times 10$ Matrix
 - Each Row is a Nephronal Unit
 - Each Column is a Selected Chemical Constituent
 
@@ -51,7 +51,7 @@ Initial Concentrations of Chemical Constituents in Filtrate
 
 $$\text{concs}()$$
 $$\begin{bmatrix}
-\text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine}\\
+\text{Na}^+&⠀\text{Cl}^-⠀&\text{ Urea }&\text{Glucose}&⠀\text{K}^+⠀&\text{ HCO}_3^-&\text{ Mg}^{2+}&\text{ PO}_4^{3-}&\text{Creatinine} + &\text{ Ca}^{2+}\\
 140 & 103 & 5 & 5 &\color{red}? & \color{red}? & \color{red}? &  \color{red}? & \color{red}?
 \end{bmatrix}\frac{\text{mmol}}{\text{L}}$$
 
@@ -59,11 +59,11 @@ $$\begin{bmatrix}
 
 ## Pseudocode
 1. Initializes vectors for `Chemicals`, `Nephronal Units`, `Inlet Filtrate Concentrations`, and `Molar Flow Rates`
-2. Initializes data matrix for `Reabsorption Fractions`
+2. Initializes data matrix for `Reabsorption Fractions` and `Secretion Fractions`
 3. Initializes starting values at Renal Corpuscle: `Inlet Filtrate Concentrations`
-4. Calculates the snGFR
+4. Calculates the snGFR based on test cases
 
-$$\text{snGFR}⠀=⠀\frac{60}{1000}$$
+$$\text{snGFR, basal}⠀=⠀\frac{79}{1000}$$
 $$\text{Unit: }\color{grey}\left(\frac{\text{mL}}{\text{min}}\right)$$
 
 <br>
@@ -101,3 +101,18 @@ $$\text{Unit: }\color{grey}\left(\frac{\text{g}}{\text{min}}\right)$$
 9. Plots Graphs
 - $\text{mM}$ vs. Nephronal Unit
 - $\frac{\text{mmol}}{\text{min}}$ vs. Nephronal Unit
+
+12 plots total for the following conditions:
+1. Healthy patient
+2. CKD Stage 3b
+3. Type II diabetes mellitus (early)
+4. Type II diabetes mellitus (late)
+5. Hypertension
+6. A combination of 2, 4, 5
+
+## Parametrization and Generalizability
+1. Conditional accounting for higher salt intake - adjusting NaCl secretion accordingly
+2. Robust test cases - CKD Stage 3b, type II diabetes (early and late), hypertension, and a combination of CKD Stage 3b, late type II diabetes, and hypertension (as would typically occur in a CKD patient)
+3. Pseudomodeling of pH modulation via bicarbonate accounting
+4. Accounting for key constituents that play a role in CKD comorbidities (i.e. glucose for diabetes modeling, hyperkalemia/hyperchloremia/hypernatremia/etc.)
+
