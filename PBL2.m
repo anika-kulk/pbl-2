@@ -116,7 +116,7 @@ molar_flow_rates(1,:) = snGFR .* concs(1,:) * 1e-3; % mmol/min; snGFR TAKEN AS I
 
 % Conditional
 % -----------------------------
-% Adjust reabsorption fractions for salt in the case of high salt intake - whether a one-off event or hypernatremia/hyperchloremia
+% Adjust secretion fractions for salt in the case of high salt intake - whether a one-off event or hypernatremia/hyperchloremia; more salt in urine
 if concs(1, 1) > 140.0000 && concs(1, 2) > 106
       sec_frac(8,1) = 0.02;  % Na+
       sec_frac(8,2) = 0.03;  % Cl-    
@@ -309,6 +309,7 @@ kidney_model(C0_htn, sn_htn, "Hypertension");
 [C0_tmp,  sn_tmp]  = test_cases(C0_tmp,  sn_tmp, 'htn');
 [C0_combo, sn_combo] = test_cases(C0_tmp, sn_tmp, 't2dm_late');
 kidney_model(C0_combo, sn_combo, "CKD3b + HTN + T2DM (Late)");
+
 
 
 
